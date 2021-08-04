@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plyaing Sounds And Music</title>
+    <script src="./Winwheel.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/gsap.min.js"></script>
+
+</head>
+
+<body>
+    <canvas id='canvas' width='440' height='300'>
+        Canvas not supported, use another browser.
+    </canvas>
+
+    <button onClick="theWheel.startAnimation();">Spin the Wheel</button>
+
+    <script>
+        // 기본 소리
+        // let theWheel = new Winwheel({
+        //     'numSegments' : 4,
+        //     'segments'    :
+        //     [
+        //         {'fillStyle' : '#eae56f', 'text' : 'Segment 1'},
+        //         {'fillStyle' : '#89f26e', 'text' : 'Segment 2'},
+        //         {'fillStyle' : '#7de6ef', 'text' : 'Segment 3'},
+        //         {'fillStyle' : '#e7706f', 'text' : 'Segment 4'}
+        //     ],
+        //     'animation' :
+        //     {
+        //         'type'          : 'spinToStop',
+        //         'duration'      : 10,
+        //         'spins'         : 5,
+        //         'callbackSound' : playSound,    // Specify function to call when sound is to be triggered
+        //     }
+        // });
+
+        // let audio = new Audio('./tick.mp3');  // Create audio object and load desired file.
+
+        // function playSound()
+        // {
+        //     // Stop and rewind the sound (stops it if already playing).
+        //     audio.pause();
+        //     audio.currentTime = 0;
+
+        //     // Play the sound.
+        //     audio.play();
+        // }
+
+        // 좀더 
+        let theWheel = new Winwheel({
+            'numSegments': 4,
+            'segments': [{
+                    'fillStyle': '#eae56f',
+                    'text': 'Segment 1'
+                },
+                {
+                    'fillStyle': '#89f26e',
+                    'text': 'Segment 2'
+                },
+                {
+                    'fillStyle': '#7de6ef',
+                    'text': 'Segment 3'
+                },
+                {
+                    'fillStyle': '#e7706f',
+                    'text': 'Segment 4'
+                }
+            ],
+            'animation': {
+                'type': 'spinToStop',
+                'duration': 10,
+                'spins': 5,
+                'callbackSound': playSound, // Specify function to call when sound is to be triggered.
+                'soundTrigger': 'pin' // Pins trigger the sound for this animation.
+            },
+            'pins': // Display pins, and if desired specify the number.
+            {
+                'number': 16
+            }
+        });
+
+        let audio = new Audio('tick.mp3'); // Create audio object and load desired file.
+
+        function playSound() {
+            // Stop and rewind the sound (stops it if already playing).
+            audio.pause();
+            audio.currentTime = 0;
+
+            // Play the sound.
+            audio.play();
+        }
+    </script>
+
+    <!-- 
+        Tick.mp3 
+        https://soundbible.com/
+        여기서 받음 
+
+
+     -->
+
+</body>
+
+</html>

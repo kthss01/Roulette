@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animation Introduction and Spinning Basics</title>
+    <script src="./Winwheel.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/gsap.min.js"></script>
+</head>
+
+<body>
+    <canvas id='canvas' width='880' height='300'>
+        Canvas not supported, use another browser.
+    </canvas>
+
+
+    <!-- Then call the startAnimation function when you want the wheel to start spinning. -->
+    <!-- This might be when the user clicks a "Spin" Button. -->
+    <button onClick="theWheel.startAnimation();">Spin the Wheel</button>
+
+    <script>
+        // Create wheel objects.
+        let theWheel = new Winwheel({
+            'numSegments': 4,
+            'outerRadius': 150,
+            'segments': [{
+                    'fillStyle': '#eae56f',
+                    'text': 'Prize One'
+                },
+                {
+                    'fillStyle': '#89f26e',
+                    'text': 'Prize Two'
+                },
+                {
+                    'fillStyle': '#7de6ef',
+                    'text': 'Prize Three'
+                },
+                {
+                    'fillStyle': '#e7706f',
+                    'text': 'Prize Four'
+                }
+            ],
+            'animation': // Note animation properties passed in constructor parameters.
+            {
+                'type': 'spinToStop', // Type of animation.
+                'duration': 5, // How long the animation is to take in seconds.
+                'spins': 8 // The number of complete 360 degree rotations the wheel is to do.
+            }
+        });
+    </script>
+
+    <!-- GreenSock 라는게 필요하다고 함 
+    
+        https://greensock.com/tweenmax
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/gsap.min.js"></script>
+        이거 추가하면 됨
+    -->
+
+</body>
+
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Alignment and Orientation</title>
+    <script src="./Winwheel.js"></script>
+</head>
+
+<body>
+
+    <!-- Alignment -->
+    <canvas id='canvasInner' width='880' height='500'>
+        Canvas not supported, use another browser.
+    </canvas>
+
+    <canvas id='canvasOuter' width='880' height='500'>
+        Canvas not supported, use another browser.
+    </canvas>
+
+    <canvas id='canvasCenter' width='880' height='500'>
+        Canvas not supported, use another browser.
+    </canvas>
+
+    <!-- Margin -->
+    <canvas id='canvasInner2' width='880' height='500'>
+        Canvas not supported, use another browser.
+    </canvas>
+
+    <canvas id='canvasOuter2' width='880' height='500'>
+        Canvas not supported, use another browser.
+    </canvas>
+
+    <!-- Orientation -->
+    <!-- default horizontal -->
+    
+    <canvas id='canvasVertical' width='880' height='500'>
+        Canvas not supported, use another browser.
+    </canvas>
+
+    <canvas id='canvasCurved' width='880' height='500'>
+        Canvas not supported, use another browser.
+    </canvas>
+
+    <!-- Driection -->
+
+    <canvas id='canvasReversed' width='880' height='500'>
+        Canvas not supported, use another browser.
+    </canvas>
+
+    <script>
+        const segments = [
+                {'text' : 'Segment 1'},
+                {'text' : 'Segment 2'},
+                {'text' : 'Segment 3'},
+                {'text' : 'Segment 4'},
+                {'text' : 'Segment 5'},
+                {'text' : 'Segment 6'}
+            ];
+
+        let innerWheel = new Winwheel({
+            'canvasId' : 'canvasInner',
+            'numSegments': 6,
+            'fillStyle': '#7de6ef',
+            'textAlignment': 'inner', // Set alignment: inner, outer, center.
+            'segments': segments
+        });
+
+        let outerWheel = new Winwheel({
+            'canvasId' : 'canvasOuter',
+            'numSegments': 6,
+            'fillStyle': '#7de6ef',
+            'textAlignment': 'outer', // Set alignment: inner, outer, center.
+            'segments': segments
+        });
+
+        let centerWheel = new Winwheel({
+            'canvasId' : 'canvasCenter',
+            'numSegments': 6,
+            'fillStyle': '#7de6ef',
+            'textAlignment': 'center', // Set alignment: inner, outer, center.
+            'segments': segments
+        });
+
+        let innerWheel2 = new Winwheel({
+            'canvasId' : 'canvasInner2',
+            'numSegments'    : 6,
+            'fillStyle'      : '#7de6ef',
+            'textAlignment'  : 'inner',
+            'textMargin'     : 0,          // Specify text margin as a number.
+            'segments'       : segments
+        });
+
+        let outerWheel2 = new Winwheel({
+            'canvasId' : 'canvasOuter2',
+            'numSegments'    : 6,
+            'fillStyle'      : '#7de6ef',
+            'textAlignment'  : 'outer',
+            'textMargin'     : 0,          // Specify text margin as a number.
+            'segments'       : segments
+        });
+
+        let verticalWheel = new Winwheel({
+            'canvasId' : 'canvasVertical',
+            'numSegments'     : 6,
+            'fillStyle'       : '#7de6ef',
+            'textOrientation' : 'vertical',    // Set orientation. horizontal, vertical, curved.
+            'textFontFamily'  : 'Courier',     // Monospace font best for vertical and curved.
+            'textFontSize'    : 15,
+            'segments'        : segments
+        });
+
+        // curved 쓰기 좋아보임
+        let curvedWheel = new Winwheel({
+            'canvasId' : 'canvasCurved',
+            'numSegments'     : 6,
+            'fillStyle'       : '#7de6ef',
+            'textOrientation' : 'curved',    // Set orientation. horizontal, vertical, curved.
+            'textFontFamily'  : 'Courier',     // Monospace font best for vertical and curved.
+            'textFontSize'    : 15,
+            'segments'        : segments
+        });
+
+        let directionReversed = new Winwheel({
+            'canvasId' : 'canvasReversed',
+            'numSegments'     : 6,
+            'fillStyle'       : '#0B6184',
+            //'textOrientation' : 'horizontal',
+            'textDirection'   : 'reversed',     // Set direction. normal (default) or reversed.
+            'segments'        : segments
+        });
+
+    </script>
+
+    <!-- 
+
+     -->
+
+</body>
+
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Displaying Pins</title>
+    <script src="./Winwheel.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/gsap.min.js"></script>
+    
+</head>
+
+<body>
+    <canvas id='canvas' width='880' height='300'>
+        Canvas not supported, use another browser.
+    </canvas>
+    <script>
+        let theWheel = new Winwheel({
+            'numSegments' : 4,
+            'segments'    :
+            [
+                {'fillStyle' : '#eae56f', 'text' : 'Segment 1'},
+                {'fillStyle' : '#89f26e', 'text' : 'Segment 2'},
+                {'fillStyle' : '#7de6ef', 'text' : 'Segment 3'},
+                {'fillStyle' : '#e7706f', 'text' : 'Segment 4'}
+            ],
+            'pins' : true       // If you are happy with the default parameters you
+        });                     // can just specify true to get the pins to display.
+    </script>
+    
+    <!--  -->
+
+</body>
+
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prize Pointers and Wheel Backgrounds</title>
+    <script src="./Winwheel.js"></script>
+    <style>
+        #canvasContainer {
+            position: relative;
+            width: 300px;
+        }
+
+        #canvas {
+            z-index: 1;
+        }
+
+        #prizePointer {
+            position: absolute;
+            left: 125px;
+            top: 10px;
+            z-index: 999;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Background image -->
+
+        <!-- 시간 부족으로 일단 패스 -->
+
+    <!-- Image positioned on top -->
+
+    <div id="canvasContainer">
+        <canvas id="canvas" width="300" height="300">
+            Canvas not supported, please user another browser.
+        </canvas>
+        <img id="prizePointer" src="./basic_pointer.png" alt="V" />
+    </div>
+    <script>
+        let theWheel = new Winwheel({
+            'numSegments': 4,
+            'outerRadius': 110,
+            'textFontSize': 15,
+            'segments': [{
+                    'fillStyle': '#eae56f',
+                    'text': 'Prize One'
+                },
+                {
+                    'fillStyle': '#89f26e',
+                    'text': 'Prize Two'
+                },
+                {
+                    'fillStyle': '#7de6ef',
+                    'text': 'Prize Three'
+                },
+                {
+                    'fillStyle': '#e7706f',
+                    'text': 'Prize Four'
+                }
+            ]
+        });
+    </script>
+
+    <!-- Draw a triangle or other shape on the canvas -->
+
+        <!-- pass -->
+
+    <!-- Draw an image on the canvas -->
+
+        <!-- pass -->
+
+    <!-- Pointer Location -->
+        <!-- pass -->
+</body>
+
+</html>

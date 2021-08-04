@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altering Segment Properties</title>
+    <script src="./Winwheel.js"></script>
+</head>
+
+<body>
+
+    <canvas id='canvas' width='880' height='300'>
+        Canvas not supported, use another browser.
+    </canvas>
+
+    <button onClick="changeColours();">Change Colours</button>
+
+    <script>
+        let theWheel = new Winwheel({
+            'numSegments': 4,
+            // 'numSegments' : 6,
+            'segments': [{
+                    'fillStyle': '#eae56f',
+                    'text': 'Segment 1'
+                },
+                {
+                    'fillStyle': '#89f26e',
+                    'text': 'Segment 2'
+                },
+                {
+                    'fillStyle': '#7de6ef',
+                    'text': 'Segment 3'
+                },
+                {
+                    'fillStyle': '#e7706f',
+                    'text': 'Segment 4'
+                }
+            ]
+        });
+
+        function changeColours() {
+            // Change colours as desired by accessing the segment via the segments array
+            // of the wheel object (note first array position is 1 not 0).
+            // 1부터 시작하는거 명심하자
+            let temp = theWheel.segments[1].fillStyle;
+            theWheel.segments[1].fillStyle = theWheel.segments[2].fillStyle;
+            theWheel.segments[2].fillStyle = theWheel.segments[3].fillStyle;
+            theWheel.segments[3].fillStyle = theWheel.segments[4].fillStyle;
+            theWheel.segments[4].fillStyle = temp;
+
+            // The draw method of the wheel object must be called
+            // in order for the changes to be rendered.
+            // draw 호출 해줘야함
+            theWheel.draw();
+        }
+    </script>
+
+    <!-- 
+        segments 인덱스 1부터 시작 주의
+
+        바꾸고 난담엔 draw() 호출하기
+     -->
+
+</body>
+
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adding and Removing Segments</title>
+    <script src="./Winwheel.js"></script>
+</head>
+
+<body>
+
+    <canvas id='canvas' width='880' height='300'>
+        Canvas not supported, use another browser.
+    </canvas>
+
+    <button onClick="addSegment();">Add Segment</button>
+    <button onClick="deleteSegment();">Delete Segment</button>
+
+    <script>
+        let theWheel = new Winwheel({
+            'numSegments': 4,
+            // 'numSegments' : 6,
+            'segments': [{
+                    'fillStyle': '#eae56f',
+                    'text': 'Segment 1'
+                },
+                {
+                    'fillStyle': '#89f26e',
+                    'text': 'Segment 2'
+                },
+                {
+                    'fillStyle': '#7de6ef',
+                    'text': 'Segment 3'
+                },
+                {
+                    'fillStyle': '#e7706f',
+                    'text': 'Segment 4'
+                }
+            ]
+        });
+
+        function addSegment() {
+            // Use a date object to set the text of each added segment to the current minutes:seconds
+            // (just to give each new segment a different label).
+            let date = new Date();
+
+            // The Second parameter in the call to addSegment specifies the position,
+            // in this case 1 meaning the new segment goes at the start of the wheel.
+            theWheel.addSegment({
+                'text': date.getMinutes() + ':' + date.getSeconds(),
+                'fillStyle': 'aqua'
+            }, 1);
+
+            // The draw method of the wheel object must be called in order for the changes
+            // to be rendered.
+            theWheel.draw();
+        }
+
+        function deleteSegment() {
+            // Call function to remove a segment from the wheel, by default the last one will be
+            // removed; you can pass in the number of the segment to delete if desired.
+            theWheel.deleteSegment();
+
+            // 숫자 넣으면 해당 세그먼트 번호 지울수도 있음 참고
+            // theWheel.deleteSegment(2);
+
+            // 없는 숫자 넣으면 가장 마지막꺼 지워짐
+            // theWheel.deleteSegment(5);
+
+            // The draw method of the wheel object must be called to render the changes.
+            theWheel.draw();
+        }
+    </script>
+
+    <!-- 
+        add
+        segment 객체를 addSegment 메소드에 넣어주면 됨
+        text와 fillStyle 정도만 선택해서 넣어주면 될거 같음
+
+        delete
+        deleteSegment 호출하면 됨 마지막꺼 지워짐
+        숫자 argument로 넣으면 해당 세그번트 지울 수 잇음
+        지우고 나면 다시 밀림 참고
+        없는 숫자 넣으면 마지막꺼 지워짐
+        하나 남으면 하나는 안지워짐
+
+
+        항상 끝나고 나서는 draw 호출
+
+        넣고 나서 변경도 가능
+        let newSegment = theWheel.addSegment(); // Add segment
+ 
+        newSegment.text = "Hello World";        // Set text and fillStyle using returned
+        newSegment.fillStyle = "green";         // pointer to the segment object.
+        
+        theWheel.draw();                        // Render changes.
+     -->
+
+</body>
+
+</html>

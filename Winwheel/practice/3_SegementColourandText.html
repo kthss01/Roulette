@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Segment Colour and Text</title>
+    <script src="./Winwheel.js"></script>
+</head>
+<body>
+    
+    <canvas id='canvas' width='880' height='300'>
+        Canvas not supported, use another browser.
+    </canvas>
+
+    <script>
+        let theWheel = new Winwheel({
+            'numSegments' : 4,
+            // 'numSegments' : 6,
+            'segments' : 
+            [
+                {'fillStyle' : '#eae56f', 'text' : 'Segment 1'},
+                {'fillStyle' : '#89f26e', 'text' : 'Segment 2'},
+                {'fillStyle' : '#7de6ef', 'text' : 'Segment 3'},
+                {'fillStyle' : '#e7706f', 'text' : 'Segment 4'}
+            ]
+        });
+    </script>
+
+    <!-- 
+        Multiline text 가능
+
+        그냥 통과 segment 만들려면 numSegments 값 넣어줘야함
+     -->
+
+</body>
+</html>
