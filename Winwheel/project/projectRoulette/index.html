@@ -6,6 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>프로젝트 역할 분담 정하기</title>
+
+    <link rel="icon" href="./roulette.png">
+
     <script src="./Winwheel.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/gsap.min.js"></script>
     <style>
@@ -37,45 +40,35 @@
         <img id="prizePointer" src="./basic_pointer.png" alt="V" />
     </div>
 
-    <button onClick="theWheel.startAnimation();">돌리기</button>
+    <button id="spinBtn">돌리기</button> <br><br>
+    <input type="text" id="addInputText" placeholder="참여 인원 입력">&nbsp;<button onClick="addSegment();">추가</button> <br><br>
+    <input type="text" id="deleteInputText" placeholder="참여 인원 입력">&nbsp;<button onClick="deleteSegment();">삭제</button>
 
     <script>
+        const fillStyles = ['#eae56f', '#89f26e', '#7de6ef', '#e7706f', "#8b00ff"];
+        let player = ['김태훈', '김선효', '김현영', '권민지', '김은아'];
+        const num = player.length;
+        let numSegments = num
+        let segments = (function() {
+            let arr = [];
+
+            for (let i = 0; i < numSegments; i++) {
+                const segment = {
+                    'fillStyle' : fillStyles[i], 
+                    'text' : player[i]};
+                arr.push(segment);
+            }
+
+            return arr;
+        })();
+
+        // console.log(segments);
+
         let theWheel = new Winwheel({
-            'numSegments': 8,
+            'numSegments': numSegments,
             'outerRadius': 200,
-            'segments': [{
-                    'fillStyle': '#eae56f',
-                    'text': 'Prize 1'
-                },
-                {
-                    'fillStyle': '#89f26e',
-                    'text': 'Prize 2'
-                },
-                {
-                    'fillStyle': '#7de6ef',
-                    'text': 'Prize 3'
-                },
-                {
-                    'fillStyle': '#e7706f',
-                    'text': 'Prize 4'
-                },
-                {
-                    'fillStyle': '#eae56f',
-                    'text': 'Prize 5'
-                },
-                {
-                    'fillStyle': '#89f26e',
-                    'text': 'Prize 6'
-                },
-                {
-                    'fillStyle': '#7de6ef',
-                    'text': 'Prize 7'
-                },
-                {
-                    'fillStyle': '#e7706f',
-                    'text': 'Prize 8'
-                }
-            ],
+            'segments': segments,
+            // 'textOrientation' : 'curved', 
             'animation': {
                 'type': 'spinToStop',
                 'duration': 5,
@@ -97,19 +90,72 @@
             // Call getIndicatedSegment() function to return pointer to the segment pointed to on wheel.
             let winningSegment = theWheel.getIndicatedSegment();
 
+            const text = winningSegment.text;
+
             // Basic alert of the segment text which is the prize name.
-            alert("You have won " + winningSegment.text + "!");
+            alert(`${text}님이 당첨되셨습니다!`);
         }
 
         let audio = new Audio('tick.mp3'); // Create audio object and load desired file.
 
         function playSound() {
             // Stop and rewind the sound (stops it if already playing).
-            audio.pause();
+            // audio.pause();
             audio.currentTime = 0;
 
             // Play the sound.
             audio.play();
+        }
+
+        const spinBtn = document.getElementById("spinBtn");
+        spinBtn.addEventListener("click", function(e){
+            // console.log(e);
+            e.target.disabled = true;
+            theWheel.startAnimation();
+        });
+
+        function addSegment() {
+            const player = document.getElementById('addInputText').value;
+            const playerNum = theWheel.segments.length;
+
+            console.log(player);
+
+            theWheel.addSegment({
+                'text': player,
+                'fillStyle': fillStyles[playerNum % fillStyles.length]
+            }, 1);
+
+            // console.log(theWheel.segments)
+
+            // The draw method of the wheel object must be called in order for the changes
+            // to be rendered.
+            theWheel.draw();
+        }
+
+        function deleteSegment() {
+            // Call function to remove a segment from the wheel, by default the last one will be
+            // removed; you can pass in the number of the segment to delete if desired.
+            // theWheel.deleteSegment();
+
+            const player = document.getElementById('deleteInputText').value;
+
+            // console.log(player);
+            if (player === '') 
+                theWheel.deleteSegment();
+            else {
+                // console.log(theWheel.segments);
+                for (let i = 0; i < theWheel.segments.length; i++) {
+                    const segement = theWheel.segements[i + 1];
+
+                    if (segement.text === player) {
+                        theWheel.deleteSegment(i + 1);
+                    }
+                }
+                
+            }
+
+            // The draw method of the wheel object must be called to render the changes.
+            theWheel.draw();
         }
     </script>
 
