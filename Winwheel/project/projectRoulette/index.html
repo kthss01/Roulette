@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -42,7 +42,10 @@
 
     <button id="spinBtn">돌리기</button> <br><br>
     <input type="text" id="addInputText" placeholder="참여 인원 입력">&nbsp;<button onClick="addSegment();">추가</button> <br><br>
-    <input type="text" id="deleteInputText" placeholder="참여 인원 입력">&nbsp;<button onClick="deleteSegment();">삭제</button>
+    <input type="text" id="deleteInputText" placeholder="삭제 인원 입력">&nbsp;<button onClick="deleteSegment();">삭제</button> <br><br>
+
+    <textarea id="playerTextarea" cols="50" rows="3"></textarea>
+    <button onClick="setSegments();">참여 인원 설정</button>
 
     <script>
         const fillStyles = ['#eae56f', '#89f26e', '#7de6ef', '#e7706f', "#8b00ff"];
@@ -54,13 +57,18 @@
 
             for (let i = 0; i < numSegments; i++) {
                 const segment = {
-                    'fillStyle' : fillStyles[i], 
+                    'fillStyle' : fillStyles[i % fillStyles.length], 
                     'text' : player[i]};
                 arr.push(segment);
             }
 
             return arr;
         })();
+
+        onload = function() {
+            const textarea = document.getElementById("playerTextarea");
+            textarea.value = player.join(' ');
+        }
 
         // console.log(segments);
 
@@ -100,7 +108,9 @@
 
         function playSound() {
             // Stop and rewind the sound (stops it if already playing).
-            // audio.pause();
+            // 이거 문제 많이 발생함 일단 하지 말자
+            // if (audio.currentTime !== 0)
+            //     audio.pause();
             audio.currentTime = 0;
 
             // Play the sound.
@@ -118,7 +128,7 @@
             const player = document.getElementById('addInputText').value;
             const playerNum = theWheel.segments.length;
 
-            console.log(player);
+            // console.log(player);
 
             theWheel.addSegment({
                 'text': player,
@@ -126,6 +136,7 @@
             }, 1);
 
             // console.log(theWheel.segments)
+
 
             // The draw method of the wheel object must be called in order for the changes
             // to be rendered.
@@ -143,18 +154,68 @@
             if (player === '') 
                 theWheel.deleteSegment();
             else {
-                // console.log(theWheel.segments);
-                for (let i = 0; i < theWheel.segments.length; i++) {
-                    const segement = theWheel.segements[i + 1];
+                console.log(theWheel.segments);
+                let findIndex = 1;
+                for (let i = 1; i < theWheel.segments.length; i++) {
+                    const segment = theWheel.segments[i];
 
-                    if (segement.text === player) {
-                        theWheel.deleteSegment(i + 1);
+                    // console.log(segment)
+
+                    if (segment.text === player) {
+                        findIndex = i;
+                        break;
                     }
                 }
+
+                theWheel.deleteSegment(findIndex);
                 
             }
 
             // The draw method of the wheel object must be called to render the changes.
+            theWheel.draw();
+        }
+
+        function setSegments() {
+            const fillStyles = ['#eae56f', '#89f26e', '#7de6ef', '#e7706f', "#8b00ff"];
+            const player = document.getElementById("playerTextarea").value.split(' ');
+            const num = player.length;
+            let numSegments = num;
+
+            // console.log(player);
+
+            let segments = (function() {
+                let arr = [];
+
+                for (let i = 0; i < numSegments; i++) {
+                    const segment = {
+                        'fillStyle' : fillStyles[i % fillStyles.length], 
+                        'text' : player[i]};
+                    arr.push(segment);
+                }
+
+                return arr;
+            })();
+
+            theWheel = new Winwheel({
+                'numSegments': numSegments,
+                'outerRadius': 200,
+                'segments': segments,
+                'animation': {
+                    'type': 'spinToStop',
+                    'duration': 5,
+                    'spins': 8,
+                    'callbackSound': playSound, // Specify function to call when sound is to be triggered.
+                    'soundTrigger': 'pin', // Pins trigger the sound for this animation.
+                    // Remember to do something after the animation has finished specify callback function.
+                    'callbackFinished': 'alertPrize()',
+
+                }, 
+                'pins': // Display pins, and if desired specify the number.
+                {
+                    'number': 16
+                }
+            });
+
             theWheel.draw();
         }
     </script>
