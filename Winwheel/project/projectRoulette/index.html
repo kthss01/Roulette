@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>프로젝트 역할 분담 정하기</title>
+    <script src="./Winwheel.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/gsap.min.js"></script>
+    <style>
+        #canvasContainer {
+            position: relative;
+            width: 300px;
+        }
+
+        #canvas {
+            z-index: 1;
+        }
+
+        #prizePointer {
+            position: absolute;
+            left: 375px;
+            top: 50px;
+            z-index: 999;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>프로젝트 역할 분담 정하기</h1>
+
+    <div id="canvasContainer">
+        <canvas id="canvas" width="800" height="600">
+            Canvas not supported, please user another browser.
+        </canvas>
+        <img id="prizePointer" src="./basic_pointer.png" alt="V" />
+    </div>
+
+    <button onClick="theWheel.startAnimation();">돌리기</button>
+
+    <script>
+        let theWheel = new Winwheel({
+            'numSegments': 8,
+            'outerRadius': 200,
+            'segments': [{
+                    'fillStyle': '#eae56f',
+                    'text': 'Prize 1'
+                },
+                {
+                    'fillStyle': '#89f26e',
+                    'text': 'Prize 2'
+                },
+                {
+                    'fillStyle': '#7de6ef',
+                    'text': 'Prize 3'
+                },
+                {
+                    'fillStyle': '#e7706f',
+                    'text': 'Prize 4'
+                },
+                {
+                    'fillStyle': '#eae56f',
+                    'text': 'Prize 5'
+                },
+                {
+                    'fillStyle': '#89f26e',
+                    'text': 'Prize 6'
+                },
+                {
+                    'fillStyle': '#7de6ef',
+                    'text': 'Prize 7'
+                },
+                {
+                    'fillStyle': '#e7706f',
+                    'text': 'Prize 8'
+                }
+            ],
+            'animation': {
+                'type': 'spinToStop',
+                'duration': 5,
+                'spins': 8,
+                'callbackSound': playSound, // Specify function to call when sound is to be triggered.
+                'soundTrigger': 'pin', // Pins trigger the sound for this animation.
+                // Remember to do something after the animation has finished specify callback function.
+                'callbackFinished': 'alertPrize()',
+
+            }, 
+            'pins': // Display pins, and if desired specify the number.
+            {
+                'number': 16
+            }
+        });
+
+        // This function called after the spin animation has stopped.
+        function alertPrize() {
+            // Call getIndicatedSegment() function to return pointer to the segment pointed to on wheel.
+            let winningSegment = theWheel.getIndicatedSegment();
+
+            // Basic alert of the segment text which is the prize name.
+            alert("You have won " + winningSegment.text + "!");
+        }
+
+        let audio = new Audio('tick.mp3'); // Create audio object and load desired file.
+
+        function playSound() {
+            // Stop and rewind the sound (stops it if already playing).
+            audio.pause();
+            audio.currentTime = 0;
+
+            // Play the sound.
+            audio.play();
+        }
+    </script>
+
+    <!--  -->
+
+</body>
+
+</html>
