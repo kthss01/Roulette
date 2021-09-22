@@ -1,11 +1,15 @@
 // Board.js
 
-export default function Board({ $app, initialState }) {
+export default function Board({ $app, initialState, onAdd, onEdit, onDelete }) {
     this.state = initialState;
 
     this.$target = document.createElement('div');
     this.$target.className = 'boardContainer';
     $app.appendChild(this.$target);
+
+    this.onAdd = onAdd;
+    this.onEdit = onEdit;
+    this.onDelete = onDelete;
 
     // setState
     this.setState = nextState => {
@@ -22,9 +26,10 @@ export default function Board({ $app, initialState }) {
             return `
             <tr>
                 <td>
-                    <input class="rank" type="number" readonly value="${i}">
+                    <input class="rank" type="number" readonly>
                 </td>
                 <td>
+                    <input class="playerId" type="hidden" value="${i}">
                     <input class="player" type="text" value="${player}">
                 </td>
                 <td>
@@ -36,7 +41,10 @@ export default function Board({ $app, initialState }) {
         }).join('');
 
         this.$target.innerHTML = `
-        <button id="addBtn" type="button">추가</button>
+        <div>
+            <input id="addInput" type="text" placeholder="이름을 입력하세요">
+            <button class="addBtn" type="button">추가</button>
+        </div>
         <table id='board'>
             <caption>보드판</caption>
             <tr>
@@ -48,4 +56,23 @@ export default function Board({ $app, initialState }) {
         </table>
         `;
     }
+
+    // event
+    this.$target.addEventListener('click', (e) => {
+        const targetClass = e.target.className;
+        //console.log(e.target.tagName);
+        if (targetClass === 'editBtn') { // edit
+            const playerName = e.target.parentNode.parentNode.querySelector('.player').value;
+            const playerId = e.target.parentNode.parentNode.querySelector('.playerId').value
+            if (playerName) // 값이 있을 때만
+                this.onEdit(playerName, playerId);
+        } else if (targetClass === 'deleteBtn') { // delete
+            const playerId = e.target.parentNode.parentNode.querySelector('.playerId').value
+            this.onDelete(playerId);
+        } else if (targetClass === 'addBtn') { // add
+            const playerName = e.target.parentNode.querySelector('#addInput').value;                    
+            if (playerName) // 값이 있을 때만
+                this.onAdd(playerName);
+        }
+    })
 }
