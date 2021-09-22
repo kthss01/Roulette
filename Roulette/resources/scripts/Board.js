@@ -1,6 +1,6 @@
 // Board.js
 
-export default function Board({ $app, initialState, onAdd, onEdit, onDelete }) {
+export default function Board({ $app, initialState, onAdd, onEdit, onDelete, onSpin, onMultiPlus, onMultiMinus }) {
     this.state = initialState;
 
     this.$target = document.createElement('div');
@@ -10,6 +10,9 @@ export default function Board({ $app, initialState, onAdd, onEdit, onDelete }) {
     this.onAdd = onAdd;
     this.onEdit = onEdit;
     this.onDelete = onDelete;
+    this.onSpin = onSpin;
+    this.onMultiPlus = onMultiPlus;
+    this.onMultiMinus = onMultiMinus;
 
     // setState
     this.setState = nextState => {
@@ -33,24 +36,30 @@ export default function Board({ $app, initialState, onAdd, onEdit, onDelete }) {
                     <input class="player" type="text" value="${player}">
                 </td>
                 <td>
-                    <button class="editBtn" type="button">수정</button>
-                    <button class="deleteBtn" type="button">삭제</button>
+                    <button class="editBtn action-button shadow animate blue" type="button">수정</button>
+                    <button class="deleteBtn action-button shadow animate red" type="button">삭제</button>
                 </td>
             </tr>
             `
         }).join('');
 
         this.$target.innerHTML = `
-        <div>
-            <input id="addInput" type="text" placeholder="이름을 입력하세요">
-            <button class="addBtn" type="button">추가</button>
-        </div>
-        <table id='board'>
-            <caption>보드판</caption>
+        <table id='boardTable' border="1">
+            <caption><button class="spinBtn action-button shadow animate green" type="button">Spin</button></caption>
             <tr>
                 <th>등수</th>
                 <th>이름</th>
-                <th>수정/삭제</th>
+                <th>컨트롤</th>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input id="addInput" type="text" placeholder="이름을 입력하세요">        
+                </td>
+                <td>
+                    <button class="addBtn action-button shadow animate yellow" type="button">추가</button>        
+                    <button class="multiPlusBtn action-button shadow animate blue" type="button">+</button>
+                    <button class="multiMinusBtn action-button shadow animate red" type="button">-</button>
+                </td>
             </tr>
             ${playersData}
         </table>
@@ -59,20 +68,28 @@ export default function Board({ $app, initialState, onAdd, onEdit, onDelete }) {
 
     // event
     this.$target.addEventListener('click', (e) => {
-        const targetClass = e.target.className;
         //console.log(e.target.tagName);
-        if (targetClass === 'editBtn') { // edit
-            const playerName = e.target.parentNode.parentNode.querySelector('.player').value;
-            const playerId = e.target.parentNode.parentNode.querySelector('.playerId').value
-            if (playerName) // 값이 있을 때만
-                this.onEdit(playerName, playerId);
-        } else if (targetClass === 'deleteBtn') { // delete
-            const playerId = e.target.parentNode.parentNode.querySelector('.playerId').value
-            this.onDelete(playerId);
-        } else if (targetClass === 'addBtn') { // add
-            const playerName = e.target.parentNode.querySelector('#addInput').value;                    
-            if (playerName) // 값이 있을 때만
-                this.onAdd(playerName);
-        }
+        const targetClassList = e.target.className.split(' ');
+        targetClassList.forEach((targetClass) => {
+            if (targetClass === 'editBtn') { // edit
+                const playerName = e.target.parentNode.parentNode.querySelector('.player').value;
+                const playerId = e.target.parentNode.parentNode.querySelector('.playerId').value
+                if (playerName) // 값이 있을 때만
+                    this.onEdit(playerName, playerId);
+            } else if (targetClass === 'deleteBtn') { // delete
+                const playerId = e.target.parentNode.parentNode.parentNode.querySelector('.playerId').value
+                this.onDelete(playerId);
+            } else if (targetClass === 'addBtn') { // add
+                const playerName = e.target.parentNode.parentNode.querySelector('#addInput').value;                    
+                if (playerName) // 값이 있을 때만
+                    this.onAdd(playerName);
+            } else if (targetClass === 'spinBtn') {
+                this.onSpin();
+            } else if (targetClass === 'multiPlusBtn') {
+                this.onMultiPlus();
+            } else if (targetClass === 'multiMinusBtn') {
+                this.onMultiMinus();
+            }
+        });
     })
 }

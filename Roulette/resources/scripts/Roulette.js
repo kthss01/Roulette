@@ -65,7 +65,7 @@ export default function Roulette({ $app, initialState, onWin }) {
                 // if (isOdd)
                 //     console.log(i, index);
                 segments.push({
-                    'fillStyle' : isOdd && i === 0 && index === 0 ? '#15B041' : fillStyles[color++ % fillStyles.length],
+                    'fillStyle' : isOdd && i === 0 && index === 0 ? 'rgba(85, 185, 120, 1)' : fillStyles[color++ % fillStyles.length],
                     'text' : player,
                     'textFillStyle': 'white',
                     'textFontWeight': 'bold',

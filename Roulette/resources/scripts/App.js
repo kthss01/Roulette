@@ -2,7 +2,6 @@
 
 import Roulette from "./Roulette.js";
 import Board from "./Board.js";
-import Controller from "./Controller.js";
 import Spinning from "./Spinning.js";
 
 const PALETTE = [
@@ -14,8 +13,8 @@ const PALETTE = [
     // '#A0C4FF', 
     // '#BDB2FF', 
     // '#FFC6FF',
-    'red',
-    'black',
+    'rgba(255, 0, 0, 1)',
+    'rgba(0, 0, 0, 1)',
 ]
 
 export default function App($app) {
@@ -26,31 +25,6 @@ export default function App($app) {
         isSpin: false,
         multiply: 4,
     };
-
-    // Controller
-    const controller = new Controller({
-        $app,
-        initialState: this.state,
-        onSpin: () => {
-            const {players, ranks} = this.state;
-            const remainPlayer = players.filter((p, i) => ranks[i] === 0);
-
-            if (!this.state.isSpin && remainPlayer.length > 1) {
-                this.setState({
-                    ...this.state,
-                    isSpin: true,
-                })
-            }
-        },
-        onMultiPlus: () => {
-            this.state.multiply += 1;
-            this.setState(this.state);
-        },
-        onMultiMinus: () => {
-            this.state.multiply = this.state.multiply > 1 ? this.state.multiply - 1 : this.state.multiply;
-            this.setState(this.state);
-        },
-    })
 
     // Roulette
     const roulette = new Roulette({
@@ -109,7 +83,26 @@ export default function App($app) {
             ranks.splice(id, 1);
 
             this.setState({...this.state, players });
-        }
+        },
+        onSpin: () => {
+            const {players, ranks} = this.state;
+            const remainPlayer = players.filter((p, i) => ranks[i] === 0);
+
+            if (!this.state.isSpin && remainPlayer.length > 1) {
+                this.setState({
+                    ...this.state,
+                    isSpin: true,
+                })
+            }
+        },
+        onMultiPlus: () => {
+            this.state.multiply += 1;
+            this.setState(this.state);
+        },
+        onMultiMinus: () => {
+            this.state.multiply = this.state.multiply > 1 ? this.state.multiply - 1 : this.state.multiply;
+            this.setState(this.state);
+        },
     });
 
     // spinning
@@ -122,7 +115,6 @@ export default function App($app) {
     this.setState = (nextState) => {
         this.state = nextState;
 
-        controller.setState(this.state);
         roulette.setState(this.state);
         board.setState(this.state);
         spinning.setState(this.state);
