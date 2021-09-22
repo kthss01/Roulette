@@ -3,6 +3,7 @@
 import Roulette from "./Roulette.js";
 import Board from "./Board.js";
 import Controller from "./Controller.js";
+import Spinning from "./Spinning.js";
 
 const PALETTE = [
     // '#FFADAD', 
@@ -22,8 +23,8 @@ export default function App($app) {
         fillStyles: PALETTE,
         players: ["1", "2", "3", "4"],
         ranks: [0, 0, 0, 0],
-        isSpin: true,
-        multiply: 3,
+        isSpin: false,
+        multiply: 4,
     };
 
     // Controller
@@ -31,10 +32,13 @@ export default function App($app) {
         $app,
         initialState: this.state,
         onSpin: () => {
-            if (this.state.isSpin) {
+            const {players, ranks} = this.state;
+            const remainPlayer = players.filter((p, i) => ranks[i] === 0);
+
+            if (!this.state.isSpin && remainPlayer.length > 1) {
                 this.setState({
                     ...this.state,
-                    isStart: true
+                    isSpin: true,
                 })
             }
         },
@@ -78,7 +82,7 @@ export default function App($app) {
                 })
             }
 
-            this.setState({...this.state, ranks, isStart: false, isSpin: remainPlayer.length > 1});
+            this.setState({...this.state, ranks, isStart: false, isSpin: false});
         }
     });
 
@@ -91,9 +95,7 @@ export default function App($app) {
             players.push(player.toString());
             ranks.push(0);
 
-            const remainPlayer = players.filter((p, i) => ranks[i] === 0);
-
-            this.setState({...this.state, players, ranks, isSpin: remainPlayer.length > 1 });
+            this.setState({...this.state, players, ranks });
         },
         onEdit: (player, id) => {
             const { players } = this.state;
@@ -110,6 +112,12 @@ export default function App($app) {
         }
     });
 
+    // spinning
+    const spinning = new Spinning({
+        $app,
+        initialState: this.state
+    });
+
     // setState
     this.setState = (nextState) => {
         this.state = nextState;
@@ -117,6 +125,7 @@ export default function App($app) {
         controller.setState(this.state);
         roulette.setState(this.state);
         board.setState(this.state);
+        spinning.setState(this.state);
     }
 
     const init = () => {

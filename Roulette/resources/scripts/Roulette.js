@@ -44,7 +44,7 @@ export default function Roulette({ $app, initialState, onWin }) {
     // render
     this.render = () => {
         this.$target.innerHTML = `
-        <canvas id="canvas" width="800" height="600">
+        <canvas id="canvas" width="800" height="500">
             Canvas not supported, please user another browser.
         </canvas>
         <img id="prizePointer" src="./resources/images/basic_pointer.png" alt="V" />
@@ -62,8 +62,8 @@ export default function Roulette({ $app, initialState, onWin }) {
 
         for (let i = 0; i < multiply; i++) {
             showPlayer.forEach((player, index) => {
-                if (isOdd)
-                    console.log(i, index);
+                // if (isOdd)
+                //     console.log(i, index);
                 segments.push({
                     'fillStyle' : isOdd && i === 0 && index === 0 ? '#15B041' : fillStyles[color++ % fillStyles.length],
                     'text' : player,
@@ -74,6 +74,7 @@ export default function Roulette({ $app, initialState, onWin }) {
         }
             
         // console.log(segments);
+        // console.log(segments.length);
 
         this.wheel = new Winwheel({
             'numSegments': segments.length,
@@ -87,7 +88,7 @@ export default function Roulette({ $app, initialState, onWin }) {
             'animation': {
                 'type': 'spinToStop',
                 'duration': 10,
-                'spins': 8,
+                'spins': 16,
                 'callbackSound': this.playSound, // Specify function to call when sound is to be triggered.
                 'soundTrigger': 'pin', // Pins trigger the sound for this animation.
                 // Remember to do something after the animation has finished specify callback function.
@@ -95,11 +96,11 @@ export default function Roulette({ $app, initialState, onWin }) {
             }, 
             'pins': // Display pins, and if desired specify the number.
             {
-                'number': 16
+                'number': segments.length
             }
         });
 
-        if (this.state.isStart) {
+        if (this.state.isSpin) {
             this.wheel.startAnimation();
         }
     }
