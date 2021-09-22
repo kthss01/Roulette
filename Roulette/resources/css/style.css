@@ -1,6 +1,12 @@
 #canvasContainer {
+    /* background-color: green; */
+    background-image: url('../images/icon_3.gif');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 280px 280px;
     position: relative;
-    width: 300px;
+    width: 800px;
+    height: 600px;
 }
 
 #canvas {

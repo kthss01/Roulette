@@ -5,31 +5,25 @@ import Board from "./Board.js";
 import Controller from "./Controller.js";
 
 const PALETTE = [
-    '#FFADAD', 
-    '#FFD6A5', 
-    '#FDFFB6', 
-    '#CAFFBF', 
-    '#9BF6FF', 
-    '#A0C4FF', 
-    '#BDB2FF', 
-    '#FFC6FF',
+    // '#FFADAD', 
+    // '#FFD6A5', 
+    // '#FDFFB6', 
+    // '#CAFFBF', 
+    // '#9BF6FF', 
+    // '#A0C4FF', 
+    // '#BDB2FF', 
+    // '#FFC6FF',
+    'red',
+    'black',
 ]
 
 export default function App($app) {
-    // const playerNum = 4;
-    // let multiply = 1;
-
-    // this.makePlayer = (cnt, multiply) => {
-    //     const players = new Array(cnt * multiply).fill(0);
-    //     return players.map((v, i) => ((i % playerNum) + 1) .toString());
-    // }
-
     this.state = {
         fillStyles: PALETTE,
-        // players: this.makePlayer(playerNum, multiply),
         players: ["1", "2", "3", "4"],
         ranks: [0, 0, 0, 0],
         isSpin: true,
+        multiply: 3,
     };
 
     // Controller
@@ -45,10 +39,12 @@ export default function App($app) {
             }
         },
         onMultiPlus: () => {
-
+            this.state.multiply += 1;
+            this.setState(this.state);
         },
         onMultiMinus: () => {
-
+            this.state.multiply = this.state.multiply > 1 ? this.state.multiply - 1 : this.state.multiply;
+            this.setState(this.state);
         },
     })
 
@@ -60,11 +56,13 @@ export default function App($app) {
             // console.log(winner);
             const { players, ranks } = this.state;
 
+            // console.log(ranks);
+
             // 순위는 정해진 순위 + 1
             const rank = ranks.filter((v) => v !== 0).length + 1;  
 
             players.forEach((player, index) => {
-                if (player === winner) {
+                if (player === winner && ranks[index] === 0) {
                     ranks[index] = rank;
                     return false;
                 }
@@ -80,7 +78,7 @@ export default function App($app) {
                 })
             }
 
-            this.setState({...this.state, ranks, isStart: false, isSpin: remainPlayer.length !== 1});
+            this.setState({...this.state, ranks, isStart: false, isSpin: remainPlayer.length > 1});
         }
     });
 

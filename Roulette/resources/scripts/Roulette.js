@@ -17,7 +17,6 @@ export default function Roulette({ $app, initialState, onWin }) {
 
         this.wheel.segments.forEach((segment) => {
             if (segment) {
-                // console.log(segment.text);
                 if (winner === segment.text) {
                     onWin(winner);
                     return false; // break
@@ -51,33 +50,40 @@ export default function Roulette({ $app, initialState, onWin }) {
         <img id="prizePointer" src="./resources/images/basic_pointer.png" alt="V" />
         `;
 
-        const { fillStyles, players, ranks } = this.state;
+        const { fillStyles, players, ranks, multiply } = this.state;
 
-        let segments = players.filter((v, i) => ranks[i] === 0);
-        if (segments.length !== 0) {
-            segments = segments.map((player, index) => {
-                return {
-                    'fillStyle' : fillStyles[index % fillStyles.length],
-                    'text' : player
-                }
-            });
-        } else {
-            segments = players.map((player, index) => {
-                return {
-                    'fillStyle' : fillStyles[index % fillStyles.length],
-                    'text' : player
-                }
+        let showPlayer = players.filter((v, i) => ranks[i] === 0);
+        const segments = [];
+        let color = 1;
+
+        showPlayer = showPlayer.length === 0 ? players : showPlayer;
+
+        const isOdd = showPlayer.length % 2 === 1;
+
+        for (let i = 0; i < multiply; i++) {
+            showPlayer.forEach((player, index) => {
+                if (isOdd)
+                    console.log(i, index);
+                segments.push({
+                    'fillStyle' : isOdd && i === 0 && index === 0 ? '#15B041' : fillStyles[color++ % fillStyles.length],
+                    'text' : player,
+                    'textFillStyle': 'white',
+                    'textFontWeight': 'bold',
+                });
             });
         }
-
+            
         // console.log(segments);
 
         this.wheel = new Winwheel({
             'numSegments': segments.length,
+            'innerRadius': 140, 
             'outerRadius': 200,
             'segments': segments,
-            'textOrientation' : 'vertical', 
-            //'textOrientation' : 'curved', 
+            'textMargin': 0,
+            // 'textOrientation' : 'vertical', 
+            'textFontSize': 31,
+            'textOrientation' : 'curved', 
             'animation': {
                 'type': 'spinToStop',
                 'duration': 10,
