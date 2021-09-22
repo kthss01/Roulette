@@ -1,8 +1,10 @@
 // Roulette.js
 
-export default function Roulette({ $app, initialState }) {
+export default function Roulette({ $app, initialState, onWin }) {
     this.state =  initialState;
     
+    this.onWin = onWin;
+
     this.$target = document.createElement('div');
     this.$target.id = 'canvasContainer';
     $app.appendChild(this.$target);
@@ -11,9 +13,19 @@ export default function Roulette({ $app, initialState }) {
     this.alertPrize = () => {
         let winningSegment = this.wheel.getIndicatedSegment();
 
-        const text = winningSegment.text;
+        const winner = winningSegment.text;
 
-        alert(`${text}팀이 당첨되었습니다!`);
+        this.wheel.segments.forEach((segment) => {
+            if (segment) {
+                // console.log(segment.text);
+                if (winner === segment.text) {
+                    onWin(winner);
+                    return false; // break
+                }
+            }
+        })
+
+        alert(`${winner}팀이 당첨되었습니다!`);
     }
 
     // sound
@@ -39,17 +51,29 @@ export default function Roulette({ $app, initialState }) {
         <img id="prizePointer" src="./resources/images/basic_pointer.png" alt="V" />
         `;
 
-        const { fillStyles, players } = this.state;
+        const { fillStyles, players, ranks } = this.state;
 
-        const segments = players.map((player, index) => {
-            return {
-                'fillStyle' : fillStyles[index % fillStyles.length],
-                'text' : player
-            }
-        })
+        let segments = players.filter((v, i) => ranks[i] === 0);
+        if (segments.length !== 0) {
+            segments = segments.map((player, index) => {
+                return {
+                    'fillStyle' : fillStyles[index % fillStyles.length],
+                    'text' : player
+                }
+            });
+        } else {
+            segments = players.map((player, index) => {
+                return {
+                    'fillStyle' : fillStyles[index % fillStyles.length],
+                    'text' : player
+                }
+            });
+        }
+
+        // console.log(segments);
 
         this.wheel = new Winwheel({
-            'numSegments': players.length,
+            'numSegments': segments.length,
             'outerRadius': 200,
             'segments': segments,
             'textOrientation' : 'vertical', 
@@ -62,7 +86,6 @@ export default function Roulette({ $app, initialState }) {
                 'soundTrigger': 'pin', // Pins trigger the sound for this animation.
                 // Remember to do something after the animation has finished specify callback function.
                 'callbackFinished': this.alertPrize,
-
             }, 
             'pins': // Display pins, and if desired specify the number.
             {

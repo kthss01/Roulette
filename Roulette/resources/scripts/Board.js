@@ -20,13 +20,13 @@ export default function Board({ $app, initialState, onAdd, onEdit, onDelete }) {
     // render
     this.render = () => {
 
-        const { fillStyles, players } = this.state;
+        const { players, ranks } = this.state;
 
         const playersData = players.map((player, i) => {
             return `
             <tr>
                 <td>
-                    <input class="rank" type="number" readonly>
+                    <input class="rank" type="number" value="${ranks[i] !== 0 ? ranks[i] : ''}" readonly>
                 </td>
                 <td>
                     <input class="playerId" type="hidden" value="${i}">

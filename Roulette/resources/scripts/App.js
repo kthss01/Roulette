@@ -27,7 +27,9 @@ export default function App($app) {
     this.state = {
         fillStyles: PALETTE,
         // players: this.makePlayer(playerNum, multiply),
-        players: ["1", "2", "3", "4"]
+        players: ["1", "2", "3", "4"],
+        ranks: [0, 0, 0, 0],
+        isSpin: true,
     };
 
     // Controller
@@ -35,10 +37,12 @@ export default function App($app) {
         $app,
         initialState: this.state,
         onSpin: () => {
-            this.setState({
-                ...this.state,
-                isStart: true
-            })
+            if (this.state.isSpin) {
+                this.setState({
+                    ...this.state,
+                    isStart: true
+                })
+            }
         },
         onMultiPlus: () => {
 
@@ -52,6 +56,32 @@ export default function App($app) {
     const roulette = new Roulette({
         $app,
         initialState: this.state,
+        onWin: (winner) => {
+            // console.log(winner);
+            const { players, ranks } = this.state;
+
+            // 순위는 정해진 순위 + 1
+            const rank = ranks.filter((v) => v !== 0).length + 1;  
+
+            players.forEach((player, index) => {
+                if (player === winner) {
+                    ranks[index] = rank;
+                    return false;
+                }
+            });
+                
+            // 남은 인원 한명일 때 rank 마저 채우기
+            const remainPlayer = players.filter((p, i) => ranks[i] === 0);
+            if (remainPlayer.length === 1) {    
+                players.forEach((player, index) => {
+                    if (player === remainPlayer[0]) {
+                        ranks[index] = rank + 1;
+                    } 
+                })
+            }
+
+            this.setState({...this.state, ranks, isStart: false, isSpin: remainPlayer.length !== 1});
+        }
     });
 
     // Board
@@ -59,10 +89,13 @@ export default function App($app) {
         $app,
         initialState: this.state,
         onAdd: (player) => {
-            const { players } = this.state;
+            const { players, ranks } = this.state;
             players.push(player.toString());
+            ranks.push(0);
 
-            this.setState({...this.state, players });
+            const remainPlayer = players.filter((p, i) => ranks[i] === 0);
+
+            this.setState({...this.state, players, ranks, isSpin: remainPlayer.length > 1 });
         },
         onEdit: (player, id) => {
             const { players } = this.state;
@@ -71,8 +104,9 @@ export default function App($app) {
             this.setState({...this.state, players });
         }, 
         onDelete: (id) => {
-            const { players } = this.state;
+            const { players, ranks } = this.state;
             players.splice(id, 1);
+            ranks.splice(id, 1);
 
             this.setState({...this.state, players });
         }
