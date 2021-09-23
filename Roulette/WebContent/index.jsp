@@ -1,6 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.kh.common.JDBCTemplate" %>
+<%@ page import="java.sql.Connection" %>
+<%@ page import="java.sql.PreparedStatement" %>
+<%@ page import="java.sql.ResultSet" %>
 <!DOCTYPE html>
+
+<%
+
+	Connection conn = JDBCTemplate.getConnection();
+	
+	PreparedStatement pstmt = null;
+	ResultSet rset = null;
+	
+	pstmt = conn.prepareStatement("SELECT * FROM TEST");
+
+	rset = pstmt.executeQuery();
+	
+	if (rset.next())
+		System.out.println(rset.getString(1));
+%>
+
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
