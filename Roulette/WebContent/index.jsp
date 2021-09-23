@@ -6,25 +6,6 @@
 <%@ page import="java.sql.ResultSet" %>
 <%@ page import="java.io.File" %>
 <!DOCTYPE html>
-
-<%
-
-	Connection conn = JDBCTemplate.getConnection();
-	
-	File file = new File(".");
-	System.out.println(file.getAbsolutePath());
-	System.out.println(System.getProperty("user.dir"));
-
-	PreparedStatement pstmt = null;
-	ResultSet rset = null;
-	
-	pstmt = conn.prepareStatement("SELECT * FROM TEST");
-
-	rset = pstmt.executeQuery();
-	
-	if (rset.next())
-		System.out.println(rset.getString(1));
-%>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
