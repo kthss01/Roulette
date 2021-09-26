@@ -7,6 +7,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="./styles.css">
 </head>
+
 <body>
     <div class="container">
         <ul>
@@ -64,7 +65,7 @@
                 <textarea name="content" cols="30" rows="10" maxlength="400" placeholder="댓글을 남겨주세요"></textarea>
             </div>
             <div class="user_input_box">
-                <input type="hidden" name="ip">
+                <input type="hidden" id="ipInput" name="ip">
                 <div class="user_input">
                     <input name="writer" type="text">
                 </div>
@@ -75,5 +76,15 @@
             </div>
         </fieldset>
     </form>
+
+    <script>
+        function getIP(json) {
+            //console.log(json);
+            //document.write("My public IP address is: ", json.ip);
+            const ipInput = document.querySelector('#ipInput');
+            ipInput.value = json.ip;
+        }
+    </script>
+    <script src="https://api.ipify.org?format=jsonp&callback=getIP"></script>
 </body>
 </html>
