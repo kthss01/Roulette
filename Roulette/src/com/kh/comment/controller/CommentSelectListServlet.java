@@ -24,7 +24,10 @@ public class CommentSelectListServlet extends HttpServlet {
 		
 		List<Comment> list = new CommentService().selectAllComment(pi);
 		
-//		System.out.println(list.size());
+		System.out.println(list.size());
+		for (Comment comment : list) {
+			System.out.println(comment);
+		}
 		
 		request.setAttribute("list", list);
 		request.setAttribute("pi", pi);

@@ -8,30 +8,36 @@
 <title>방명록</title>
 
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/comment/styles.css">
-
 </head>
 <body>
 	<div class="container">
+		<div class="msg-box">
+			msg : ${ requestScope.msg }
+		</div>
+	
         <ul>
-            <li class="item">
-                <span class="thumbnail"></span>
-                <div class="box-content">
-                    <div class="box-meta">
-                        <strong>이름</strong>
-                        <span class="date">작성일</span>
-                    </div>
-                    <p class="text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsam dolores pariatur fuga provident ab dolor, consectetur sunt officiis rem neque sit, nam ea eligendi distinctio aliquam, eaque nihil? Minima, architecto.</p>
-                    <a class="link-comment" href="#">답글</a>
-                    <ul class="list-modify">
-                        <li><a href="#">수정</a></li>
-                        <li><a href="#">삭제</a></li>
-                    </ul>
-                </div>
-            </li>
+       		<c:forEach var="comment" items="${ list }" varStatus="cm">
+	            <li class="item">
+	                <span class="thumbnail"></span>
+	                <div class="box-content">
+	                    <div class="box-meta">
+	                		<span class="commentId" style="display: none">${ comment.id }</span>
+	                        <strong>${ comment.writer } (${ comment.ip })</strong>
+	                        <span class="date">${ comment.postDate }</span>
+	                    </div>
+	                    <p class="text">${ comment.content }</p>
+	                    <a class="link-comment" href="#">답글</a>
+	                    <ul class="list-modify">
+	                        <li><a href="#">수정</a></li>
+	                        <li><a href="#">삭제</a></li>
+	                    </ul>
+	                </div>
+	            </li>
+            </c:forEach>
         </ul>
     </div>
 
-    <form action="post">
+    <form action="commentInsert.do" method="post">
         <fieldset class="write_box">
             <div class="user_comment_box">
                 <textarea name="content" cols="30" rows="10" maxlength="400" placeholder="댓글을 남겨주세요"></textarea>
@@ -44,7 +50,7 @@
                 <div class="user_input">
                     <input name="password" type="password">
                 </div>
-                <input class="submit_btn" type="submit" value="등록">
+                <input class="submit_btn" type="submit" value="작성">
             </div>
         </fieldset>
     </form>

@@ -29,30 +29,35 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		id="selectAllComment"
 		resultType="com.kh.comment.model.vo.Comment"
 		resultMap="comment">
-		SELECT * 
+		SELECT ID, IP, WRITER, CONTENT
 		FROM (
 			SELECT ROWNUM RNUM, A.* 
 			FROM COMMENT_TABLE A 
 			WHERE IS_DELETE = 'N' ORDER BY POST_DATE DESC
 			) 
-		WHERE RNUM BETWEEN ${rstart} AND ${rend}
+		WHERE RNUM BETWEEN #{rstart} AND #{rend}
 	</select> 
+	
+	<!-- insertComment -->
+	<insert id="insertComment">
+		INSERT INTO COMMENT_TABLE 
+		VALUES(SEQ_COMMENTID.NEXTVAL, #{ip}, #{writer}, #{password}, #{content}, SYSDATE, DEFAULT, NULL)
+	</insert>
 	
 	<!-- selectComment -->
 	<select
 		id="selectComment"
 		resultType="com.kh.comment.model.vo.Comment"
 		resultMap="comment">
-		SELECT * FROM COMMENT_TABLE WHERE ID = ${cId}
+		SELECT * FROM COMMENT_TABLE WHERE ID = #{cId}
 	</select>
 	
 	<!-- updateComment -->
-	<select
-		id="selectComment"
-		resultType="com.kh.comment.model.vo.Comment"
-		resultMap="comment">
-		UPDATE COMMENT_TABLE SET CONTENT = ${content} WHERE ID = ${cId}
-	</select>
+	<update
+		id="updateComment"
+		parameterType="com.kh.comment.model.vo.Comment">
+		UPDATE COMMENT_TABLE SET CONTENT = #{content} WHERE ID = #{cId}
+	</update>
 	
 	<select id="test" resultType="int">
 		SELECT 1 FROM DUAL

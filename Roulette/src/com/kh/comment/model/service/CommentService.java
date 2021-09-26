@@ -41,11 +41,33 @@ public class CommentService {
 		return comment;
 	}
 
+	public int insertComment(Comment comment) {
+		SqlSession session = MyBatisManager.getInstance().openSession();
+
+		int result = new CommentDao().insertComment(session, comment);
+
+		if (result > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+		
+		session.close();
+
+		return result;
+	}
+
 	public int updateComment(int cId, String content) {
 		SqlSession session = MyBatisManager.getInstance().openSession();
 
 		int result = new CommentDao().updateComment(session, cId, content);
 
+		if (result > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+		
 		session.close();
 
 		return result;

@@ -37,8 +37,7 @@ public class CommentUpdateServlet extends HttpServlet {
 			// 비밀번호 틀림
 			request.setAttribute("msg", "비밀번호 틀림");
 		}
-		request.getRequestDispatcher("/commentSelectList.do");
-		
+		request.getRequestDispatcher("/commentSelectList.do").forward(request, response);;
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

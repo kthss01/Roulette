@@ -59,7 +59,21 @@ public class CommentDao {
 		map.put("cId", cId);
 		map.put("content", content);
 		
-		result = session.selectOne("comment.updateComment", map);
+		result = session.update("comment.updateComment", map);
+		
+		return result;
+	}
+
+	public int insertComment(SqlSession session, Comment comment) {
+		int result = 0;
+		
+		Map map = new HashMap<>();
+		map.put("ip", comment.getIp());
+		map.put("content", comment.getContent());
+		map.put("writer", comment.getWriter());
+		map.put("password", comment.getPassword());
+		
+		result = session.insert("comment.insertComment", map);
 		
 		return result;
 	}
