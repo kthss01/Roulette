@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@700&display=swap');
+
+* {
+	font-family: 'Gowun Batang', serif;
+}
+
 a {
     text-decoration: none;
     color: #333;
@@ -123,7 +129,7 @@ ul {
 }
 
 .user_comment_box textarea {
-    width: 550px;
+    width: 525px;
     height: 80px;
     padding: 13px;
     border: 1px solid #cecdce;
@@ -149,7 +155,6 @@ ul {
     line-height: 29px;
     padding: 2px 7px 0;
     border: none;
-    font-family: '굴림', Gulim;
     font-size: 12px;
     vertical-align: top;
 }

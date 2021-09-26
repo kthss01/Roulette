@@ -24,7 +24,7 @@ export default function Roulette({ $app, initialState, onWin }) {
             }
         })
 
-        alert(`${winner}팀이 당첨되었습니다!`);
+        alert(`${winner}이 당첨되었습니다!`);
     }
 
     // sound
@@ -65,10 +65,12 @@ export default function Roulette({ $app, initialState, onWin }) {
                 // if (isOdd)
                 //     console.log(i, index);
                 segments.push({
-                    'fillStyle' : isOdd && i === 0 && index === 0 ? 'rgba(85, 185, 120, 1)' : fillStyles[color++ % fillStyles.length],
+                    'fillStyle' : fillStyles[color++ % fillStyles.length],
+                    //'fillStyle' : isOdd && i === 0 && index === 0 ? 'rgba(85, 185, 120, 1)' : fillStyles[color++ % fillStyles.length],
                     'text' : player,
-                    'textFillStyle': 'white',
-                    'textFontWeight': 'bold',
+                    //'textFillStyle': 'white',
+                    //'textFontWeight': 'Lighter',
+                    //'textFontWeight': 'bold',
                 });
             });
         }
@@ -78,13 +80,13 @@ export default function Roulette({ $app, initialState, onWin }) {
 
         this.wheel = new Winwheel({
             'numSegments': segments.length,
-            'innerRadius': 140, 
+            'innerRadius': 120, 
             'outerRadius': 200,
             'segments': segments,
             'textMargin': 0,
-            // 'textOrientation' : 'vertical', 
-            'textFontSize': 31,
-            'textOrientation' : 'curved', 
+            'textOrientation' : 'vertical', 
+            'textFontSize': 16,
+            //'textOrientation' : 'curved', 
             'animation': {
                 'type': 'spinToStop',
                 'duration': 10,

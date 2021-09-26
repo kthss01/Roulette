@@ -3,18 +3,19 @@
 import Roulette from "./Roulette.js";
 import Board from "./Board.js";
 import Spinning from "./Spinning.js";
+import Comment from "./Comment.js";
 
 const PALETTE = [
-    // '#FFADAD', 
-    // '#FFD6A5', 
-    // '#FDFFB6', 
-    // '#CAFFBF', 
-    // '#9BF6FF', 
-    // '#A0C4FF', 
-    // '#BDB2FF', 
-    // '#FFC6FF',
-    'rgba(255, 0, 0, 1)',
-    'rgba(0, 0, 0, 1)',
+    '#FFADAD', 
+    '#FFD6A5', 
+    '#FDFFB6', 
+    '#CAFFBF', 
+    '#9BF6FF', 
+    '#A0C4FF', 
+    '#BDB2FF', 
+    '#FFC6FF',
+    //'rgba(255, 0, 0, 1)',
+    //'rgba(0, 0, 0, 1)',
 ]
 
 export default function App($app) {
@@ -105,6 +106,15 @@ export default function App($app) {
         },
     });
 
+    // Comment
+    const comment = new Comment({
+        $app,
+        initialState: this.state,
+        onPopup: () => {
+            window.open('views/comment/comment.jsp', '방명록', 'top=200, left=300, width=800, height=600');
+        }
+    })
+
     // spinning
     const spinning = new Spinning({
         $app,
@@ -118,6 +128,7 @@ export default function App($app) {
         roulette.setState(this.state);
         board.setState(this.state);
         spinning.setState(this.state);
+        comment.setState(this.state);
     }
 
     const init = () => {

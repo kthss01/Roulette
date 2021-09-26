@@ -94,6 +94,7 @@ h3#name {
 #boardTable {
     width: 800px;
     margin: 0 auto;
+    position: relative;
 }
 
 #boardTable caption {
@@ -132,3 +133,13 @@ h3#name {
     font-size: 18px;
 }
 
+.popupBox {
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+.popupBtn {
+	width: 100px;
+	height: 45px;
+}

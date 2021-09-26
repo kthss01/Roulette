@@ -66,6 +66,8 @@ export default function Board({ $app, initialState, onAdd, onEdit, onDelete, onS
         `;
     }
 
+    this.render();
+
     // event
     this.$target.addEventListener('click', (e) => {
         //console.log(e.target.tagName);
