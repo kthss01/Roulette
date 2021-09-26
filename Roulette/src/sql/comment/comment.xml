@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- comment.mapper 패키지의 comment.xml -->
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="comment">
+	<!-- 이렇게 맞춰두면 AS로 조회할 때 vo db 필드명 다른거 안 맞춰도됨 -->
+	<resultMap type="com.kh.comment.model.vo.Comment" id="comment">
+		<result property="id" column="ID"/>
+		<result property="ip" column="IP"/>
+		<result property="writer" column="WRITER"/>
+		<result property="password" column="PASSWORD"/>
+		<result property="content" column="CONTENT"/>
+		<result property="postDate" column="POST_DATE"/>
+		<result property="isDelete" column="IS_DELETE"/>
+		<result property="parentId" column="PARENT_ID"/>
+	</resultMap>
+
+	<!-- selectAllComment -->
+	<select 
+		id="selectAllComment"
+		resultType="com.kh.comment.model.vo.Comment"
+		resultMap="comment">
+		
+		SELECT * FROM COMMENT_TABLE
+	</select>
+	
+	<select id="test" resultType="int">
+		SELECT 1 FROM DUAL
+	</select>
+	
+	<select id="test2" resultType="int">
+		SELECT COUNT(*) FROM COMMENT_TABLE
+	</select>
+</mapper>

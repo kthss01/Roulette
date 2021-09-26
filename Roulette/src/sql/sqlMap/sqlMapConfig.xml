@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "--//mybatis.org//DTD Config 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-config.dtd">
+	
+<!-- 순서대로 해야한다고함 -->
+<configuration>
+	<!-- alias 설정 -->
+	<!-- 
+	<typeAliases>
+		<typeAlias alias="" type=""/>
+	</typeAliases>
+	 -->
+	 
+	 <!-- DB Setting -->
+	 <environments default="development">
+	 	<environment id="development">
+	 		<transactionManager type="JDBC" />
+	 		<dataSource type="POOLED">
+	 			<property name="driver" value="oracle.jdbc.driver.OracleDriver"/>
+	 			<property name="url" value="jdbc:oracle:thin:@roulette_high?TNS_ADMIN=C:/Users/Kay/Downloads/Study/ocp/Wallet_Roulette"/>
+	 			<property name="username" value="admin"/>
+	 			<property name="password" value="Khsideproject0704"/>
+	 		</dataSource>	
+	 	</environment>
+	 </environments>
+	 
+	 <!-- SQL -->
+	 <mappers>
+	 	<mapper resource="sql/comment/comment.xml"/>
+	 </mappers>
+</configuration>

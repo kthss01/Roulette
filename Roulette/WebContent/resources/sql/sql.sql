@@ -40,3 +40,9 @@ UPDATE COMMENT_TABLE SET CONTENT = 'test' WHERE ID = 1;
 
 -- deleteComment
 DELETE FROM COMMENT_TABLE WHERE ID = 1;
+
+SELECT COUNT(*) FROM COMMENT_TABLE;
+
+SELECT 1 FROM DUAL;
+
+COMMIT; -- 이거 안해서 더미 데이터 확인이 mybatis에서 안된거

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,36 +21,6 @@
                         <span class="date">작성일</span>
                     </div>
                     <p class="text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsam dolores pariatur fuga provident ab dolor, consectetur sunt officiis rem neque sit, nam ea eligendi distinctio aliquam, eaque nihil? Minima, architecto.</p>
-                    <a class="link-comment" href="#">답글</a>
-                    <ul class="list-modify">
-                        <li><a href="#">수정</a></li>
-                        <li><a href="#">삭제</a></li>
-                    </ul>
-                </div>
-            </li>
-            <li class="item">
-                <span class="thumbnail"></span>
-                <div class="box-content">
-                    <div class="box-meta">
-                        <strong>이름</strong>
-                        <span class="date">작성일</span>
-                    </div>
-                    <p class="text">내용</p>
-                    <a class="link-comment" href="#">답글</a>
-                    <ul class="list-modify">
-                        <li><a href="#">수정</a></li>
-                        <li><a href="#">삭제</a></li>
-                    </ul>
-                </div>
-            </li>
-            <li class="item">
-                <span class="thumbnail"></span>
-                <div class="box-content">
-                    <div class="box-meta">
-                        <strong>이름</strong>
-                        <span class="date">작성일</span>
-                    </div>
-                    <p class="text">내용</p>
                     <a class="link-comment" href="#">답글</a>
                     <ul class="list-modify">
                         <li><a href="#">수정</a></li>
