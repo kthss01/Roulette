@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>클라이언트 ip 주소 확인하기</title>
+</head>
+
+<body>
+
+    <script type="application/javascript">
+        function getIP(json) {
+            console.log(json);
+            document.write("My public IP address is: ", json.ip);
+        }
+    </script>
+
+    <script type="application/javascript" src="https://api.ipify.org?format=jsonp&callback=getIP"></script>
+
+    <!-- ipify -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        async function getIpClient() {
+            try {
+                const response = await axios.get('https://api.ipify.org?format=json');
+                console.log(response);
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        getIpClient();
+    </script> -->
+
+    <!-- Ipinfo 
+        사용 제한 있다고함 하루에 1,000건 또는 한달 50,000건 무료 요청
+        이것도 api 키 같은게 필요해보임
+    -->
+    <!-- <script>
+        async function getIpClient2() {
+            try {
+                const response = await axios.get('https://ipinfo.io/json');
+                console.log(response);
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        getIpClient2();
+    </script> -->
+
+    <!-- Abstract
+        한달 20,000개 무료 인데 무료 요금제를 사용하더라도 api 키 필요하다고함
+        https://www.abstractapi.com/ip-geolocation-api
+    -->
+    <!-- <script>
+        async function getIpClient3() {
+            try {
+              const response = await axios.get('https://ipgeolocation.abstractapi.com/v1/?api_key=<your_api_key>');
+              console.log(response);
+            } catch (error) {
+              console.error(error);
+            }
+          }
+          
+          getIpClient3();
+    </script> -->
+
+</body>
+
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>윈도우 팝업 연습</title>
+</head>
+<body>
+    <div class="container">
+        <div class="btnBox">
+            <button class="btnPopup" onclick="openPop();">팝업창 열기</button>
+        </div>
+    </div>
+
+    <script>
+        /*
+            location : 주소창 표시 (default : yes)
+            fullscreen : 전체화면으로 (default : no) 
+            toolbar : 툴바(단축도구창) 표시 (default : yes) 
+            menubar : 메뉴바 표시 (default : yes)
+            titlebar : 타이틀바 (default : yes)
+            status : 상태 표시 줄 표시 (default : no)
+            resizable : 창 크기 조정 (default : yes) - tip. 접근성을 위해 이 기능을 항상 사용 가능하도록 설정
+            scrollbars : 스크롤바 표시 (default : yes)
+            -> naver whale 기준 다 안먹히고 위치랑 크기 정도만 먹히는걸로 보임
+            -> 구글 크롬도 마찬가지
+        */
+        function openPop() {
+            window.open('./popup.html', '팝업', `
+                top=200, left=300, width=800, height=600, 
+                titlebar= no,
+                toolbar=no, menubar=no, location=no, status=no, 
+                resizable=no
+            `);
+        }
+    </script>
+</body>
+</html>
