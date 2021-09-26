@@ -31,4 +31,24 @@ public class CommentService {
 		return result;
 	}
 
+	public Comment selectComment(int cId) {
+		SqlSession session = MyBatisManager.getInstance().openSession();
+
+		Comment comment = new CommentDao().selectComment(session, cId);
+
+		session.close();
+
+		return comment;
+	}
+
+	public int updateComment(int cId, String content) {
+		SqlSession session = MyBatisManager.getInstance().openSession();
+
+		int result = new CommentDao().updateComment(session, cId, content);
+
+		session.close();
+
+		return result;
+	}
+
 }

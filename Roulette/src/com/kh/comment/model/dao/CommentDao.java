@@ -39,4 +39,28 @@ public class CommentDao {
 		
 		return result;
 	}
+
+	public Comment selectComment(SqlSession session, int cId) {
+		Comment comment = null;
+		
+		Map<String, Integer> map = new HashMap<>();
+		
+		map.put("cId", cId);
+		
+		comment = session.selectOne("comment.getListCount", map);
+		
+		return comment;
+	}
+
+	public int updateComment(SqlSession session, int cId, String content) {
+		int result = 0;
+		
+		Map map = new HashMap<>();
+		map.put("cId", cId);
+		map.put("content", content);
+		
+		result = session.selectOne("comment.updateComment", map);
+		
+		return result;
+	}
 }

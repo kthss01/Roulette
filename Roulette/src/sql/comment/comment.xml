@@ -29,7 +29,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		id="selectAllComment"
 		resultType="com.kh.comment.model.vo.Comment"
 		resultMap="comment">
-		
 		SELECT * 
 		FROM (
 			SELECT ROWNUM RNUM, A.* 
@@ -38,6 +37,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			) 
 		WHERE RNUM BETWEEN ${rstart} AND ${rend}
 	</select> 
+	
+	<!-- selectComment -->
+	<select
+		id="selectComment"
+		resultType="com.kh.comment.model.vo.Comment"
+		resultMap="comment">
+		SELECT * FROM COMMENT_TABLE WHERE ID = ${cId}
+	</select>
+	
+	<!-- updateComment -->
+	<select
+		id="selectComment"
+		resultType="com.kh.comment.model.vo.Comment"
+		resultMap="comment">
+		UPDATE COMMENT_TABLE SET CONTENT = ${content} WHERE ID = ${cId}
+	</select>
 	
 	<select id="test" resultType="int">
 		SELECT 1 FROM DUAL

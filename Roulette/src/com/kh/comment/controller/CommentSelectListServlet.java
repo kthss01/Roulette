@@ -13,8 +13,8 @@ import com.kh.comment.model.service.CommentService;
 import com.kh.comment.model.vo.Comment;
 import com.kh.comment.model.vo.PageInfo;
 
-@WebServlet("/selectCommentList.do")
-public class SelectCommentListServlet extends HttpServlet {
+@WebServlet("/commentSelectList.do")
+public class CommentSelectListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
