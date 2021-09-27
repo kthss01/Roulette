@@ -35,6 +35,10 @@
 	            </li>
             </c:forEach>
         </ul>
+        
+        <div class="pagingArea" align="center">
+        	<button onclick="location.href='${ getContext }'"
+        </div>
     </div>
 
     <form action="commentInsert.do" method="post">
