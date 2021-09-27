@@ -36,8 +36,48 @@
             </c:forEach>
         </ul>
         
+        <!-- 페이징 바 -->
+        <!-- root -->
+        <c:url var="contextPath" value='/' />
+        
         <div class="pagingArea" align="center">
-        	<button onclick="location.href='${ getContext }'"
+        	<!-- 맨 처음으로 (<<) -->
+        	<button class="action-button shadow animate red" onclick="location.href='${ contextPath }commentSelectList.do?currentPage=1'">&lt;&lt;</button>
+        	
+        	<!-- 이전 페이지로(<) -->
+        	<c:choose>
+        		<c:when test="${ pi.currentPage == 1 }">
+        			<button class="action-button shadow animate yellow" disabled>&lt;</button>
+        		</c:when>
+        		<c:otherwise>
+        			<button class="action-button shadow animate blue" onclick="location.href='${ contextPath }commentSelectList.do?currentPage=${ pi.currentPage - 1 }'">&lt;</button>
+        		</c:otherwise>
+        	</c:choose>
+        	
+        	<!-- 페이지 목록 -->
+        	<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }" step="1">
+	        	<c:choose>
+	        		<c:when test="${ p == pi.currentPage }">
+	        			<button class="action-button shadow animate yellow" disabled>${ p }</button>
+	        		</c:when>
+	        		<c:otherwise>
+	        			<button class="action-button shadow animate green" onclick="location.href='${ contextPath }commentSelectList.do?currentPage=${ p }'">${ p }</button>
+	        		</c:otherwise>
+        		</c:choose>	
+        	</c:forEach>
+        	
+        	<!-- 다음페이지(>) -->
+        	<c:choose>
+        		<c:when test="${ pi.currentPage == pi.maxPage }">
+        			<button class="action-button shadow animate yellow" disabled>&gt;</button>
+        		</c:when>
+        		<c:otherwise>
+        			<button class="action-button shadow animate blue" onclick="location.href='${ contextPath }commentSelectList.do?currentPage=${ pi.currentPage + 1 }'">&gt;</button>
+        		</c:otherwise>
+        	</c:choose>
+        	
+        	<!-- 맨 끝으로 (>>) -->
+        	<button class="action-button shadow animate red" onclick="location.href='${ contextPath }commentSelectList.do?currentPage=${ pi.maxPage }'">&gt;&gt;</button>
         </div>
     </div>
 

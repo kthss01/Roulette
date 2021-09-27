@@ -24,10 +24,10 @@ public class CommentSelectListServlet extends HttpServlet {
 		
 		List<Comment> list = new CommentService().selectAllComment(pi);
 		
-		System.out.println(list.size());
-		for (Comment comment : list) {
-			System.out.println(comment);
-		}
+//		System.out.println(list.size());
+//		for (Comment comment : list) {
+//			System.out.println(comment);
+//		}
 		
 		request.setAttribute("list", list);
 		request.setAttribute("pi", pi);
@@ -53,6 +53,8 @@ public class CommentSelectListServlet extends HttpServlet {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
 
+//		System.out.println(currentPage);
+		
 		pageLimit = 5;
 		boardLimit = 3;
 

@@ -111,7 +111,7 @@ export default function App($app) {
         $app,
         initialState: this.state,
         onPopup: () => {
-            window.open('/Roulette/commentSelectList.do', '방명록', 'top=100, left=300, width=800, height=600');
+            window.open('/Roulette/commentSelectList.do', '방명록', 'top=100, left=300, width=800, height=700');
 			//location.href = '/Roulette/commentSelectList.do';
         }
     })

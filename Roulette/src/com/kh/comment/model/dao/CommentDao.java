@@ -20,6 +20,8 @@ public class CommentDao {
 		int startRow = (pi.getCurrentPage()-1) * pi.getBoardLimit() + 1;
 		int endRow = startRow + pi.getBoardLimit() - 1;
 		
+//		System.out.println(startRow + " " + endRow);
+		
 		Map<String, Integer> map = new HashMap<>();
 		map.put("rstart", startRow);
 		map.put("rend", endRow);

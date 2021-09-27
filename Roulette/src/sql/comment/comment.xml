@@ -29,13 +29,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		id="selectAllComment"
 		resultType="com.kh.comment.model.vo.Comment"
 		resultMap="comment">
-		SELECT ID, IP, WRITER, CONTENT
-		FROM (
-			SELECT ROWNUM RNUM, A.* 
-			FROM COMMENT_TABLE A 
-			WHERE IS_DELETE = 'N' ORDER BY POST_DATE DESC
+		SELECT * FROM (
+			SELECT ROWNUM RNUM, ID, IP, WRITER, CONTENT 
+				FROM (
+					SELECT * 
+					FROM COMMENT_TABLE 
+					WHERE IS_DELETE = 'N' 
+					ORDER BY ID DESC
+				)
 			) 
-		WHERE RNUM BETWEEN #{rstart} AND #{rend}
+			WHERE RNUM BETWEEN #{rstart} AND ${rend}
 	</select> 
 	
 	<!-- insertComment -->
