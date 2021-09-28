@@ -77,12 +77,54 @@
         </fieldset>
     </form>
 
+    <button id="modalBtn">test</button>
+
+    <!-- modal -->
+    <div id="modal" class="modal-overlay">
+        <div class="modal-window">
+            <div class="title">
+                <h2>모달</h2>
+            </div>
+            <div class="close-area">X</div>
+            <div class="content">
+                <p>가나다라마바사아자차카타파하</p>
+                <p>가나다라마바사아자차카타파하</p>
+                <p>가나다라마바사아자차카타파하</p>
+                <p>가나다라마바사아자차카타파하</p>
+            </div>
+        </div>
+    </div>
+
     <script>
         function getIP(json) {
             //console.log(json);
             //document.write("My public IP address is: ", json.ip);
             const ipInput = document.querySelector('#ipInput');
             ipInput.value = json.ip;
+        }
+
+        onload = function() {
+            const modal = document.getElementById("modal");
+            const modalBtn = document.getElementById("modalBtn");
+            const modalWindow = modal.querySelector(".modal-window");
+            modalBtn.addEventListener("click", e => {
+                modal.style.visibility = "visible";
+                modalWindow.style.opacity = "1";
+            })
+
+            const closeBtn = modal.querySelector(".close-area");
+            closeBtn.addEventListener("click", e => {
+                modal.style.visibility = "hidden";
+                modalWindow.style.opacity = "0";
+            })
+
+            modal.addEventListener("click", e => {
+                const evTarget = e.target;
+                if (evTarget.classList.contains("modal-overlay")) {
+                    modal.style.visibility = "hidden";
+                    modalWindow.style.opacity = "0";
+                }
+            })
         }
     </script>
     <script src="https://api.ipify.org?format=jsonp&callback=getIP"></script>
