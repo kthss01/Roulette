@@ -83,14 +83,24 @@
     <div id="modal" class="modal-overlay">
         <div class="modal-window">
             <div class="title">
-                <h2>모달</h2>
+                <h2>방명록 수정</h2>
             </div>
             <div class="close-area">X</div>
             <div class="content">
-                <p>가나다라마바사아자차카타파하</p>
-                <p>가나다라마바사아자차카타파하</p>
-                <p>가나다라마바사아자차카타파하</p>
-                <p>가나다라마바사아자차카타파하</p>
+                <form action="" method="post">
+                    <div>
+                        <strong>이름</strong>
+                        <span class="date">작성일</span>
+                    </div>
+                    <div>
+                        <textarea class="text" rows="10" cols="50" style="resize: none;">내용</textarea> 
+                    </div>
+                    <div class="content-password">
+                        <label for="">비밀번호</label>&nbsp;
+                        <input type="password">
+                        <input type="submit" value="수정하기">
+                    </div>
+                </form>
             </div>
         </div>
     </div>
