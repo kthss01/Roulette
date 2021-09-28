@@ -18,6 +18,7 @@ public class CommentUpdateServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int cId = Integer.parseInt(request.getParameter("cId"));
+		//String ip = request.getParameter("ip");
 		String password = request.getParameter("password");
 		String content = request.getParameter("content");
 		
@@ -28,16 +29,16 @@ public class CommentUpdateServlet extends HttpServlet {
 			
 			if (result > 0) {
 				// 성공
-				request.setAttribute("msg", "방명록 수정 성공");
+				request.getSession().setAttribute("msg", "방명록 수정 성공");
 			} else {
 				// 실패
-				request.setAttribute("msg", "방명록 수정 실패");
+				request.getSession().setAttribute("msg", "방명록 수정 실패");
 			}
 		} else {
 			// 비밀번호 틀림
-			request.setAttribute("msg", "비밀번호 틀림");
+			request.getSession().setAttribute("msg", "비밀번호 틀림");
 		}
-		request.getRequestDispatcher("/commentSelectList.do").forward(request, response);;
+		response.sendRedirect(request.getContextPath() + "/commentSelectList.do");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

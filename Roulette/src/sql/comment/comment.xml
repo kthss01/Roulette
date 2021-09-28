@@ -30,13 +30,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		resultType="com.kh.comment.model.vo.Comment"
 		resultMap="comment">
 		SELECT * FROM (
-			SELECT ROWNUM RNUM, ID, IP, WRITER, CONTENT 
+			SELECT ROWNUM RNUM, A.* 
 				FROM (
 					SELECT * 
 					FROM COMMENT_TABLE 
 					WHERE IS_DELETE = 'N' 
 					ORDER BY ID DESC
-				)
+				) A
 			) 
 			WHERE RNUM BETWEEN #{rstart} AND ${rend}
 	</select> 
