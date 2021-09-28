@@ -3,7 +3,7 @@
 
 javascript로 React, Vue, Angular와 같은 component 구조로 프론트엔드 구현
 
-winwhel.js 를 이용하여 룰렛 구현
+winwheel.js 를 이용하여 룰렛 구현
 
 방명록 게시판 만들기
 
