@@ -79,7 +79,8 @@ export default function Board({ $app, initialState, onAdd, onEdit, onDelete, onS
                 if (playerName) // 값이 있을 때만
                     this.onEdit(playerName, playerId);
             } else if (targetClass === 'deleteBtn') { // delete
-                const playerId = e.target.parentNode.parentNode.parentNode.querySelector('.playerId').value
+                const playerId = e.target.parentNode.parentNode.querySelector('.playerId').value
+				//console.log(playerId);
                 this.onDelete(playerId);
             } else if (targetClass === 'addBtn') { // add
                 const playerName = e.target.parentNode.parentNode.querySelector('#addInput').value;                    

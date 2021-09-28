@@ -80,6 +80,7 @@ export default function App($app) {
         }, 
         onDelete: (id) => {
             const { players, ranks } = this.state;
+			//console.log(id);
             players.splice(id, 1);
             ranks.splice(id, 1);
 
