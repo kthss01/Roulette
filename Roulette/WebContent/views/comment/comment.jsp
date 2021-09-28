@@ -12,7 +12,8 @@
 <body>
 	<div class="container">
 		<div class="msg-box">
-			msg : ${ requestScope.msg }
+			메시지 : ${ (empty msg) ? "방명록에 글을 남겨주세요 감사합니다" : msg }
+			<c:remove var="msg"/>
 		</div>
 	
         <ul>
@@ -29,8 +30,12 @@
 	                    <a class="link-comment" href="#">답글</a>
 	                    <ul class="list-modify">
 	                        <li><a href="#">수정</a></li>
-	                        <li><a href="#">삭제</a></li>
+	                        <li><a onclick="deleteComment(${ comment.id });" href="#">삭제</a></li>
 	                    </ul>
+	                    <div class="comment-control">
+	                    	<label for="${ comment.id }">비밀번호 입력</label>	                
+	                    	<input type="password" id="${ comment.id }" class="commentPassword" name="commentPassword">
+	                	</div>
 	                </div>
 	            </li>
             </c:forEach>
@@ -100,12 +105,40 @@
     </form>
 
     <script>
+    	// ip 확인
         function getIP(json) {
             //console.log(json);
             //document.write("My public IP address is: ", json.ip);
             const ipInput = document.querySelector('#ipInput');
             ipInput.value = json.ip;
         }
+    	
+    	function deleteComment(id) {
+    		//console.log(id);
+    		
+    		// 삭제 확인
+    		if (!confirm("방명록을 삭제하시겠습니까?")) {
+    			return;	
+    		}
+    		
+    		// 폼 생성
+    		const form = document.createElement("form");
+    		form.setAttribute("charset", "UTF-8");
+    		form.setAttribute("method", "post"); // post
+    		form.setAttribute("action", "commentDelete.do"); // 요청 보낼 주소
+    		
+    		const idField = document.createElement("input");
+    		idField.setAttribute("type", "text");
+    		idField.setAttribute("name", "id");
+    		idField.setAttribute("value", id);
+    		form.appendChild(idField);
+    		
+    		const passwordField = document.querySelector(`input[id="\${id}"]`);
+    		form.appendChild(passwordField);
+    		
+    		document.body.appendChild(form);
+    		form.submit();
+    	}
     </script>
     <script src="https://api.ipify.org?format=jsonp&callback=getIP"></script>
 </body>

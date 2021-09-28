@@ -49,7 +49,7 @@ public class CommentDao {
 		
 		map.put("cId", cId);
 		
-		comment = session.selectOne("comment.getListCount", map);
+		comment = session.selectOne("comment.selectComment", map);
 		
 		return comment;
 	}
@@ -76,6 +76,17 @@ public class CommentDao {
 		map.put("password", comment.getPassword());
 		
 		result = session.insert("comment.insertComment", map);
+		
+		return result;
+	}
+
+	public int deleteComment(SqlSession session, int cId) {
+		int result = 0;
+		
+		Map<String, Integer> map = new HashMap<>();
+		map.put("cId", cId);
+		
+		result = session.update("comment.deleteComment", map);
 		
 		return result;
 	}

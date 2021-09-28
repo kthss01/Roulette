@@ -73,4 +73,20 @@ public class CommentService {
 		return result;
 	}
 
+	public int deleteComment(int cId) {
+		SqlSession session = MyBatisManager.getInstance().openSession();
+
+		int result = new CommentDao().deleteComment(session, cId);
+
+		if (result > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+		
+		session.close();
+
+		return result;
+	}
+
 }

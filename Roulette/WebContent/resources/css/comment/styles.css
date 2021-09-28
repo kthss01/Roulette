@@ -41,7 +41,7 @@ ul {
 
 .box-content {
     margin-top: -5px;
-    width: 600px;
+    width: 550px;
 }
 
 .box-meta {
@@ -96,6 +96,22 @@ ul {
 
 .list-modify li a {
     color: #777;
+}
+
+.comment-control {
+	width: 100px;
+	position: absolute;
+	bottom: 20px;
+	right: 28px;
+}
+
+.comment-control label {
+	font-size: 13px;
+	color: #777;
+}
+
+.commentPassword {
+	width: 100%;	
 }
 
 /* 방명록 등록 */

@@ -62,6 +62,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		UPDATE COMMENT_TABLE SET CONTENT = #{content} WHERE ID = #{cId}
 	</update>
 	
+	<!-- deleteComment -->
+	<update id="deleteComment">
+		UPDATE COMMENT_TABLE SET IS_DELETE = 'Y' WHERE ID = #{cId}
+	</update>
+	
 	<select id="test" resultType="int">
 		SELECT 1 FROM DUAL
 	</select>
