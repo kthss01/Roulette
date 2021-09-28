@@ -134,6 +134,12 @@
     		form.appendChild(idField);
     		
     		const passwordField = document.querySelector(`input[id="\${id}"]`);
+    		
+    		if (passwordField.value === '') {
+    			alert("비밀번호를 입력해주세요");
+    			return;
+    		}
+    		
     		form.appendChild(passwordField);
     		
     		document.body.appendChild(form);
